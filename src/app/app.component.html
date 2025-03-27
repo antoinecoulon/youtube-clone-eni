@@ -1,3 +1,21 @@
-<h1 class="text-3xl">HELLO</h1>
+<div id="app-container" class="h-screen m-0 p-0 flex flex-col justify-between items-center">
+  
+  <app-header class="bg-red-500 w-screen h-16 flex flex-row justify-between" />
 
-<router-outlet />
+  <div id="page-container" class="w-full flex flex-row">
+    
+    <aside class="w-2/16 bg-gray-300"></aside>
+
+    <main>
+      
+      <h1 class="text-3xl">HELLO</h1>
+  
+      <router-outlet />
+
+    </main>
+
+  </div>
+
+  <app-footer class="bg-red-500 w-screen h-8 flex flex-row justify-between" />
+
+</div>
