@@ -51,6 +51,18 @@ app.post("/register", async (req, res) => {
     res.json(newUser);
 });
 
+app.post("/login", async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        let user = await User.findOne({ username });
+        if (!user) return res.status(400).json({ message: "Invalid username: not found."})
+
+
+    }
+    
+    
+    })
+
 // Server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
