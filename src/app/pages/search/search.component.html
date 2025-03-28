@@ -1,0 +1,23 @@
+<h2>Search for YouTube videos</h2>
+
+<form [formGroup]="searchForm" (submit)="onSubmit()">
+    <input type="text" id="search" name="search" formControlName="search" />
+    <button>
+        Search
+    </button>
+</form>
+
+@if (hasSearched$) {
+  @for (item of searchResult; track $index) {
+    <a [routerLink]="['/player', item.id.videoId]">
+    <div class="max-w-[1200px] p-8 m-8 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-200">
+        <img src="{{ item.snippet.thumbnails.medium.url }}" alt="thumbnail" />
+        <div>
+            <h3>{{ item.snippet.title }} - {{item.id.videoId}}</h3>
+            <p>{{ item.snippet.description }}</p>
+            <button>Add to playlist</button>
+        </div>
+    </div>
+    </a>
+  }
+}
