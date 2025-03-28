@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, delay } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { YtSearchApi } from '../models/yt-search-api';
@@ -19,6 +19,7 @@ export class YtApiService {
   hasSearched$ = this.hasSearchedSubject.asObservable()
 
   search(q: string, part: string = 'snippet', key: string = API_KEY) {
+    delay(2000)
     this.hasSearchedSubject.next(true)
     return this.http.get<YtSearchApi>(`${API_BASE_URL}search?part=${part}&q=${q}&key=${key}`)
   }
