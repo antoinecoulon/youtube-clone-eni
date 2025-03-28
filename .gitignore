@@ -44,3 +44,4 @@ Thumbs.db
 
 # API
 src/environments/*
+.env.dev
