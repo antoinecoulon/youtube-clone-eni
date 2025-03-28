@@ -38,25 +38,25 @@ export class AuthService {
 
   login(username: string, password: string) {
     
-    
-    // const loggedUser = `logged-${username}`
-    // this.getUsers().subscribe(
-    //   (registeredUsers: User[]) => {
+    const headers = this.headers
 
-    //     registeredUsers.forEach(user => {
-    //       if (user.username === username && user.password === password) {
-    //         this.isAuthenticatedSubject.next(true) 
-    //       }
-    //     })
+    this.http.post(`${API_BASE_URL}login`, { username, password }, {headers}).subscribe(
+      (response: any) => {
+        const token = response.token
 
-    //     if (this.isAuthenticated$) {
-    //       console.log("Login successful!");
-    //       sessionStorage.setItem("loggedUser", loggedUser)
-    //       this.router.navigate(["/"])
-    //     } else {
-    //       console.error("Error on login");
-    //     }
-    //   }
-    // )
+        if (token) {
+          localStorage.setItem("authToken", token)
+
+          this.headers = this.headers.set('Authorization', `Bearer ${token}`)
+
+          this.isAuthenticatedSubject.next(true)
+
+          console.log('Login successful.');
+          this.router.navigate(["/"])
+        } else {
+          console.error("Error: token not found.");
+        }
+      } 
+    )
   }
 }

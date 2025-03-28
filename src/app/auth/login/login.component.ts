@@ -21,7 +21,7 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value
-      this.authService.checkCredentials(username, password)
+      this.authService.login(username, password)
     } else {
       console.log('Invalid form completion.'); 
     }
