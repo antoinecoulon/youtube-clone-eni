@@ -11,5 +11,9 @@ import { AuthService } from '../../services/auth.service';
 export class HeaderComponent {
 
   isAuthenticated$ = inject(AuthService).isAuthenticated$
+private readonly authService: AuthService = inject(AuthService)
 
+  logout() {
+    this.authService.logout()
+  }
 }
