@@ -5,10 +5,13 @@
 <nav>
     <ul>
         @if (isAuthenticated$) {
-            <li><a routerLink="/search">Search</a></li>
+            <h1>Connecté !</h1>
+        } @else {
+<h1>PAS connecté !!</h1>
+        }
+        <li><a routerLink="/search">Search</a></li>
             <li><button (click)="logout()">Logout</button></li>
         
             <li><a routerLink="/login">Se connecter</a></li>
-        }
     </ul>
 </nav>
