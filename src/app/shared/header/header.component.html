@@ -1,17 +1,18 @@
-<div>
-    <h1>YouToine</h1>
-    <p>YouTube Clone</p>
+<div class="h-16 flex items-center">
+    <img [src]="logoPath" alt="logo" class="max-w-full max-h-full object-contain"/>
+    <p class="ml-2 font-bold">YouTube Clone</p>
 </div>
+@if (isAuthenticated$ | async) {
+  <p>Vous êtes connecté, <span class="underline font-bold">{{loggedUser}}</span> </p>
+}
 <nav>
-    <ul>
-        @if (isAuthenticated$) {
-            <h1>Connecté !</h1>
+    <ul class="flex flex-row gap-4">
+        <li class="hover:text-red-200"><a routerLink="/">Home</a></li>
+        @if (isAuthenticated$ | async) {
+            <li class="hover:text-red-200"><a routerLink="/search">Search</a></li>
+            <li><button (click)="logout()" class="hover:cursor-pointer hover:text-red-200">Logout</button></li>
         } @else {
-<h1>PAS connecté !!</h1>
-        }
-        <li><a routerLink="/search">Search</a></li>
-            <li><button (click)="logout()">Logout</button></li>
-        
-            <li><a routerLink="/login">Se connecter</a></li>
+            <li class="hover:text-red-200"><a routerLink="/login">Se connecter</a></li>
+        }            
     </ul>
 </nav>
