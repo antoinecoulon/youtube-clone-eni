@@ -52,11 +52,15 @@ export class AuthService {
           this.isAuthenticatedSubject.next(true)
 
           console.log('Login successful.');
-          this.router.navigate(["/"])
+          this.router.navigate(["/search"])
         } else {
           console.error("Error: token not found.");
         }
       } 
     )
+  }
+
+  logout() {
+    this.isAuthenticatedSubject.next(false)
   }
 }
