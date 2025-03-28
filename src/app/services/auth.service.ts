@@ -11,7 +11,8 @@ const API_BASE_URL = environment.auth_api
   providedIn: 'root'
 })
 export class AuthService {
-  
+  private readonly tokenKey = 'authToken'
+
   private readonly http: HttpClient = inject(HttpClient)
   private readonly router: Router = inject(Router)
 
@@ -21,6 +22,19 @@ export class AuthService {
   headers: HttpHeaders = new HttpHeaders({
     'Content-Type': 'application/json'
   });
+
+  constructor() {
+    this.checkToken()
+  }
+
+  checkToken() {
+    const token = localStorage.getItem(this.tokenKey)
+    if (token) {
+      this.isAuthenticatedSubject.next(true)
+    } else {
+      this.isAuthenticatedSubject.next(false)
+    }
+  }
 
   getUsers() {
     return this.http.get<User[]>(`${API_BASE_URL}users`)
@@ -43,9 +57,11 @@ export class AuthService {
     this.http.post(`${API_BASE_URL}login`, { username, password }, {headers}).subscribe(
       (response: any) => {
         const token = response.token
+        const username = response.username
 
         if (token) {
           localStorage.setItem("authToken", token)
+          localStorage.setItem("username", username)
 
           this.headers = this.headers.set('Authorization', `Bearer ${token}`)
 
@@ -61,6 +77,8 @@ export class AuthService {
   }
 
   logout() {
+    localStorage.clear()
+    this.headers.delete("Authorization")
     this.isAuthenticatedSubject.next(false)
   }
 }
