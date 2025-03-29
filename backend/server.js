@@ -5,13 +5,16 @@ const jwt = require("jsonwebtoken");
 const cors = require('cors');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 const JWT_SECRET = "VC31XPrKgBgihhGpuD89NtCjWS" // ToDo: à cacher
+
+app.options('*', cors());
 
 app.use(cors({
     origin: "http://localhost:4200",
     methods: "GET, POST, PUT, DELETE",
     allowedHeaders: "Content-Type,Authorization",
+    credentials: true,
 }));
 
 app.use(bodyParser.json());
